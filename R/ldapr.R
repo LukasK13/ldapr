@@ -17,7 +17,8 @@
 #'
 #' @export
 ldapsearch <- function(...) {
-  result = suppressWarnings(system(paste0('ldapsearch ', paste0("-", names(c(...)), ifelse(lapply(c(...), is.null), "", paste0(" ", c(...))), collapse = " "), " -LLL"),
+  result = suppressWarnings(system(paste0('ldapsearch ', paste0(ifelse(lapply(names(c(...)), is.empty), "", "-"), names(c(...)),
+                                                                ifelse(lapply(c(...), is.null), "", paste0(" ", c(...))), collapse = " "), " -LLL"),
                                    intern = T, wait = T))
   if (length(result) == 0) return(NULL)
   result = result[result != ""]
